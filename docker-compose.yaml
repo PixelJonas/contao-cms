@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  contao:
+    build:
+      context: .
+    environment:
+      DOCUMENTROOT: "/web"
+      DATABASE_HOST: mariadb
+      DATABASE_PORT: "3306"
+      DATABASE_NAME: contao-test
+      DATABASE_USER: contao-test
+      DATABASE_PASSWORD: contao-test
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./contao-vol/config:/opt/app-root/src/app/config
+      - ./contao-vol/files:/opt/app-root/src/files
+      - ./contao-vol/templates:/opt/app-root/src/templates
+      #- ./contao-vol/composer.json:/opt/app-root/src/composer.json
+  mariadb:
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: contao-password
+      MYSQL_DATABASE: contao-test
+      MYSQL_USER: contao-test
+      MYSQL_PASSWORD: contao-test
+    volumes:
+      - ./database:/var/lib/mysql
