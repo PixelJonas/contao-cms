@@ -11,11 +11,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: login to registry.redhat.io
       run: docker login -u='${{ secrets.redhat_registry_username }}' -p=${{ secrets.redhat_registry_key }} registry.redhat.io
-    - name: Build the Docker image and Push it to the registry
-      uses: docker/build-push-action@v1.1.0
-      with:
-        username: ${{ secrets.quay_username }}
-        password: ${{ secrets.quay_password }}
-        registry: quay.io
-        repository: pixeljonas/contao-cms
-        add_git_labels: true
+    - name: login to Quay.io
+      run: docker login -u='${{ secrets.quay_username }}' -p=${{ secrets.quay_password }} quay.io
+    - name: build the docker image
+      run: docker build . -t contao-cms:latest
+    - name: push the image to Quay.io
+      run: docker push quay.io/pixeljonas/contao-cms:latest
