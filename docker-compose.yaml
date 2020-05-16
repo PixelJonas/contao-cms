@@ -19,7 +19,6 @@ services:
       - ./contao-vol/config:/opt/app-root/src/app/config
       - ./contao-vol/files:/opt/app-root/src/files
       - ./contao-vol/templates:/opt/app-root/src/templates
-      #- ./contao-vol/composer.json:/opt/app-root/src/composer.json
   mariadb:
     image: mariadb
     ports:
