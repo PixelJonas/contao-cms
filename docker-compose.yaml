@@ -6,11 +6,8 @@ services:
       context: .
     environment:
       DOCUMENTROOT: "/web"
-      DATABASE_HOST: mariadb
-      DATABASE_PORT: "3306"
-      DATABASE_NAME: contao-test
-      DATABASE_USER: contao-test
-      DATABASE_PASSWORD: contao-test
+      DATABASE_URL: mysql://contao-test:contao-test@mariadb:3306/contao-test
+      APP_ENV: dev
     depends_on:
       - mariadb
     ports:

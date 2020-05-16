@@ -7,11 +7,6 @@ ENV APP_SRC_DIR="/tmp/src"
 
 # Since the Contao Manager is initializing the application during build-time environment variables to be used for the configuration (e.g Databases)
 # need to be set here. The defaults provided in this files correlate to the ones provided in the docker-compose.yaml and should be overwritten during runtime
-ENV DATABASE_HOST="mariadb" \
-  DATABASE_PORT="3306" \
-  DATABASE_NAME="contao" \
-  DATABASE_USER="contao" \
-  DATABASE_PASSWORD="contao"
 
 USER 0
 
@@ -26,8 +21,6 @@ ADD composer.json composer.json
 ADD s2i /usr/libexec/s2i
 
 ADD system system
-
-ADD config app/config
 
 ADD src src
 
@@ -47,6 +40,9 @@ USER 1001
 RUN "${STI_SCRIPTS_PATH}/assemble"
 
 RUN curl -sSL https://download.contao.org/contao-manager/stable/contao-manager.phar -o ${CONTAO_PROJECT_DIR}/web/contao-manager.phar
+
+RUN php ${CONTAO_PROJECT_DIR}/vendor/bin/contao-console contao:install &&  \
+  php ${CONTAO_PROJECT_DIR}/vendor/bin/contao-console contao:symlinks
 
 USER 1001
 
