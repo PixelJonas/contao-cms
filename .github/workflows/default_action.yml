@@ -1,0 +1,19 @@
+name: Build and deploy image to Quay.io
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image and Push it to the registry
+      uses: docker/build-push-actions@v1.1.0
+      with:
+        username: ${{ secrets.quay_username }}
+        password: ${{ secrets.quay_password }}
+        registry: quay.io
+        repository: pixeljonas/contao-cms
+        add_git_labels: true
