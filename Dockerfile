@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi8/php-73
+FROM registry.access.redhat.com/ubi8/php-73
 
 ENV COMPOSER_MEMORY_LIMIT -1
 ENV CONTAO_PROJECT_DIR="/opt/app-root/src"
