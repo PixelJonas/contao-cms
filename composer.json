@@ -28,6 +28,11 @@
             "require": "^4.4"
         }
     },
+    "autoload": {
+        "files": [
+            "src/setup.php"
+        ]
+    },
     "scripts": {
         "post-install-cmd": [
             "Contao\\ManagerBundle\\Composer\\ScriptHandler::initializeApplication"
