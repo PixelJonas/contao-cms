@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: login to registry.redhat.io
-      run: docker login -u='${{ secrets.redhat_registry_username }}' -p=${{ secrets.redhat_registry_key }} registry.redhat.io
-    - name: login to Quay.io
-      run: docker login -u='${{ secrets.quay_username }}' -p=${{ secrets.quay_password }} quay.io
     - name: build the docker image
       run: docker build . -t quay.io/pixeljonas/contao-cms:latest
+  deploy:
+    runs-on: ubuntu-latest
+    - name: login to Quay.io
+      run: docker login -u='${{ secrets.quay_username }}' -p=${{ secrets.quay_password }} quay.io
     - name: push the image to Quay.io
       run: docker push quay.io/pixeljonas/contao-cms:latest
